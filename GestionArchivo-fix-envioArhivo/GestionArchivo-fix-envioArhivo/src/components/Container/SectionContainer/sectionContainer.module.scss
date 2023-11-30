@@ -1,0 +1,13 @@
+.container__external {
+    padding: 34px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    row-gap: 64px;
+    padding: 20px;
+}
+
+.container__internal {
+    display: flex;
+    flex-direction: column;
+}

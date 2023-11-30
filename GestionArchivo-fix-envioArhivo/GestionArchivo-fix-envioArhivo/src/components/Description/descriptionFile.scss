@@ -1,0 +1,130 @@
+.base-container {
+ 
+  display: flex;
+  min-height: 100vh;;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+
+
+.select {
+  margin-top: 6px;
+  width: 100%;
+  height: 37px;
+  padding: 0px 10px;
+  font-size: 16px;
+  font-family: "Open Sans", sans-serif;
+  background-color: #f3f3f3;
+  border: 0;
+  border-radius: 4px;
+  margin-bottom: 31px;
+  transition: all 250ms ease-in-out;
+}
+
+
+.descripcion {
+    display: grid;
+    width: 50%;
+    grid-template-rows: repeat(1,100px);
+    grid-template-columns: repeat(2,1fr);
+    grid-template-areas: 
+      "file1 file1"
+      "file2 file2"
+      "file3 file3 "
+      "file5 file5"
+      "file6 file6"
+      "file7 file7"
+      "file8 file8"
+      "file9 file9"
+      "file10 file10"
+    ;
+    align-items: center;
+    gap: 20px;
+
+.file1 {
+    grid-area: file1;
+   
+  }
+
+  .file2 {
+    grid-area: file2;
+  }
+
+  .file3 {
+    grid-area: file3;
+  }
+
+  .file4 {
+    grid-area: file4;
+  }
+
+  .file5 {
+    grid-area: file5;
+  }
+
+  .file6 {
+    grid-area: file6;
+  }
+
+  .file7 {
+    grid-area: file7;
+  }
+
+  .file8 {
+    grid-area: file8;
+  }
+
+  .file9 {
+    grid-area: file9;
+  }
+
+  .file10 {
+    grid-area: file10;
+  }
+
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items:flex-start;
+  label {
+    font-size: 20px;
+  }
+
+  .btn{
+    background: #00aaee;
+    color:#f3f3f3;
+  }
+
+  .btn:hover{
+    background: #3474dbb2;
+  }
+
+  
+  input {
+    margin-top: 6px;
+    width: 100%;
+    height: 37px;
+    padding: 0px 10px;
+    font-size: 16px;
+    font-family: "Open Sans", sans-serif;
+    background-color: #f3f3f3;
+    border: 0;
+    border-radius: 4px;
+    margin-bottom: 31px;
+    transition: all 250ms ease-in-out;
+    &:hover {
+      //background-color: #ffffff;
+      //box-shadow: 0px 0px 14px 0.3px #0e81ce96;
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0px 0px 12px 0.8px #3474dbb2;
+    }
+  }
+
+}
+}

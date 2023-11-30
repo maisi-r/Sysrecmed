@@ -1,0 +1,67 @@
+//Varaibles definitivas
+$background-dark: #101011;
+$text-dark: #242529;
+$primary-color: #32D4A4;
+$primary-color-neo: #28EDB2;
+$warning-color: #fc8181;
+$gray-color: #A6A6B4;
+$gray-color-200: #e2e8f0;
+
+//Variables tema ligth
+$main-bg: #f5f4fd;
+$item-hover: #f9f8fb;
+$secondary-bg: #251d33;
+$main-container-bg: #fff;
+$container-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+$text-color: #00071d;
+$texto-color-gray: #64748b;
+$color-gray:  #f8fafc;
+$anchorColor:#eee; 
+
+$baseColor: $main-bg;
+$bodyFontSize: 0.875rem;
+$bodyFontWeight: 400;
+$bodyLineHeight: 1.5;
+$bodyBackgroundColor: #2c3338;
+$htmlFontSize: 100%;
+
+//Variebles tema dark
+$main-bg-dark: #00071d;
+$item-hover-dark: #1c2339;
+$secondary-bg-dark: #36415e;
+$main-container-bg-dark: #131c31;
+$text-color-dark: #fff;
+$tooltip-bg-dark: #251d33;
+$container-shadow-dark: rgba( #131c31, 0.2) 0px 7px 29px 0px;
+
+$breakpoints: (
+    sm: 480px,
+    md: 768px,
+    lg: 992px,
+);
+
+/*------------------------------------*\
+* CONTAINER
+\*------------------------------------*/
+$container-max-width: 165rem;
+$gutter: 1rem;
+
+/*------------------------------------*\
+* COLUMNS
+\*------------------------------------*/
+$columns-number: 12;
+
+/*------------------------------------*\
+* BREAKPOINTS
+\*------------------------------------*/
+// Small devices (landscape phones, etc)
+$screen-xs-max: 768px;
+
+// Medium devices (tablets, 769px and up)
+$screen-sm-min: 769px;
+
+// Large devices (desktops, 992px and up)
+$screen-md-min: 992px;
+
+// Extra large devices (large desktops, 1200px and up)
+$screen-lg-min: 1200px;

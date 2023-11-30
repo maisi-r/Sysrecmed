@@ -1,0 +1,81 @@
+
+@import "./variables";
+
+/* --- 
+    BOTONES
+--- */
+
+%button { 
+    width: 100%;
+    min-width: 2.5rem;
+    border-color: rgba(255, 255, 255, 0.16);
+    overflow-wrap: break-word;
+    height: 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    position: relative;
+    white-space: nowrap;
+    vertical-align: middle;
+    outline: transparent solid 2px;
+    outline-offset: 2px;
+    line-height: 18px;
+    border-radius: 12px;
+    font-weight: 700;
+    transition: all 200ms ease-out;
+    padding: 12px 20px;
+    font-size: 1rem;
+    color: $text-dark;
+    background-color: $primary-color;
+    &:hover {
+        cursor: pointer;
+    }
+
+}
+
+.button {
+
+    &__primary, &__secondary, &__tertiary{
+        @extend %button;
+    }
+
+    &__primary {
+        
+        &:hover {
+            background-color: $gray-color-200;
+        }
+    }
+
+    &__secondary {
+        background-color: #ffffff;
+        &:hover {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.16);
+        }
+    }
+
+    &__tertiary {
+        width: auto;
+        // display: block;
+        //margin: 45px auto;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+
+        svg {
+            font-size: 20px;
+        }
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.16);
+            border: 1px solid black;
+        }
+    }
+
+}
+
+/* --- 
+    FIN BOTONES
+--- */
