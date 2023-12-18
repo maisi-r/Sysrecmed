@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from "cors";
 import morgan from "morgan";
 import recordRoutes from './routes/record.routes';
 import authRoutes from './routes/auth.routes';
@@ -37,6 +38,9 @@ const storage = new GridFsStorage({
 var storageSignature = multer.memoryStorage();
 const uploadSignature = multer({ storage: storageSignature });
 
+app.use(cors({
+    origin: 'http://localhost:5173',
+}));
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(cookieParser());

@@ -6,7 +6,7 @@ import { registerSchema, loginSchema } from '../schemas/auth.schema';
 
 const router = express.Router();
 
-router.post('/signup', validateSchema(registerSchema),authCtrl.signup);
+router.post('/signup', validateSchema(registerSchema), authCtrl.signup);
 router.post('/signin', validateSchema(loginSchema),authCtrl.signin);
 router.post('/signout', authCtrl.signout);
 router.get('/profile', verifyToken, authCtrl.profile);
