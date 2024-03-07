@@ -1,14 +1,16 @@
 import express from 'express';
-import * as authCtrl from '../controllers/auth.controller';
-import { verifyToken } from "../middlewares/authJwt.js";
+import {signup, signin, signout, profile} from '../controllers/auth.controller';
+import { verifyToken } from '../controllers/auth.controller';
+import { authRequired } from "../middlewares/authJwt.js";
 import { validateSchema } from '../middlewares/validator.middleware';
 import { registerSchema, loginSchema } from '../schemas/auth.schema';
 
 const router = express.Router();
 
-router.post('/signup', validateSchema(registerSchema), authCtrl.signup);
-router.post('/signin', validateSchema(loginSchema),authCtrl.signin);
-router.post('/signout', authCtrl.signout);
-router.get('/profile', verifyToken, authCtrl.profile);
+router.post('/signup', validateSchema(registerSchema), signup);
+router.post('/signin', validateSchema(loginSchema),signin);
+router.post('/signout', signout);
+router.get('/verify', verifyToken);
+router.get('/profile', authRequired, profile);
 
 export default router;

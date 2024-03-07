@@ -3,19 +3,29 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
 import { AuthProvider } from "./context/AuthContext";
+import RecordPage from "./pages/RecordPage";
+import RecordFormPage from "./pages/RecordFormPage";
+import ProfilePage from "./pages/ProfilePage";
+import HomePage from "./pages/HomePage";
+import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
   return (
  <AuthProvider>
        <BrowserRouter>
       <Routes>
-        <Route path="/" element={<h1>Home Page</h1>} />
+        <Route path="/" element={<HomePage/>} />
         <Route path="/login" element={<LoginPage/>} />
-        <Route path="/register" element={<RegisterPage/>} />
-        <Route path="/record" element={<h1>Record Page</h1>} />
-        <Route path="/add-record" element={<h1>New Record</h1>} />
-        <Route path="/record/:id" element={<h1>Update Record</h1>} />
-        <Route path="/profile" element={<h1>Profile</h1>} />
+        <Route path="/register" element={<RegisterPage />} />
+      
+      {/* <Route element={<ProtectedRoute/>}> */}
+        <Route path="/record" element={<RecordPage/>} />
+        <Route path="/add-record" element={<RecordFormPage/>} />
+        <Route path="/record/:id" element={<RecordFormPage/>} />
+        <Route path="/profile" element={<ProfilePage/>} />
+      {/* </Route> */}
+
+
       </Routes>
     </BrowserRouter>
  </AuthProvider>

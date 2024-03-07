@@ -17,7 +17,7 @@ import config from './config';
 const app = express();
 
 createRoles();
-
+const bodyParser = require('body-parser');
 // GridFs Configuration - create storage engine
 const storage = new GridFsStorage({
     url: "mongodb://127.0.0.1/Sysrecmedicos",
@@ -38,8 +38,12 @@ const storage = new GridFsStorage({
 var storageSignature = multer.memoryStorage();
 const uploadSignature = multer({ storage: storageSignature });
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(cors({
     origin: 'http://localhost:5173',
+    credentials: true
 }));
 app.use(morgan('dev'));
 app.use(express.json());

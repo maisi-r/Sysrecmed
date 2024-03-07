@@ -1,42 +1,48 @@
+// RegisterPage.jsx
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../context/AuthContext";
-import { useEffect } from "react";
-import {useNavigate} from 'react-router-dom' 
+import { useNavigate } from "react-router-dom";
 
 function RegisterPage() {
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const {signup, isAuthenticated} = useAuth()
-  const useNavigate = useNavigate()
+  const { signup, isAuthenticated, errors: registerErrors } = useAuth();
+  const navigate = useNavigate();
 
-
-  useEffect(() => {
-    if(isAuthenticated) navigate('/record');
-  },[isAuthenticated])
-
-  console.log(user);
-
-  const onSubmit = async (values) => {
+  const onSubmit = handleSubmit(async (values) => {
     try {
-      signup(values);
+      await signup(values);
     } catch (error) {
       console.error("Error during registration:", error);
-
-      // Aquí puedes mostrar un mensaje de error al usuario.
-      // Por ejemplo: setErrorMessage("Error en el registro. Inténtalo de nuevo.");
     }
-  };
+  });
+
+  useEffect(() => {
+    // Verificar si el usuario ya está autenticado al montar el componente
+    if (isAuthenticated) {
+      navigate("/record");
+    }
+  }, [isAuthenticated, navigate]);
 
   return (
     <div className="bg-zinc-800 max-w-md p-10 rounded-md">
-      <form onSubmit={handleSubmit(onSubmit)}>
+      {
+        registerErrors.map((error, i) => (
+          <div key={i} className="bg-red-500 p-2 text-white">
+            {error}
+          </div>
+        ))
+      }
+      <form onSubmit={onSubmit}>
         <input
           className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"
           type="text"
           {...register("username", { required: true })}
           placeholder="Username"
-          
         />
-        {errors.username && <p className="text-red-500">Username is required</p>}
+        {errors.username && (
+          <p className="text-red-500">Username is required</p>
+        )} 
 
         <input
           className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"
@@ -52,7 +58,9 @@ function RegisterPage() {
           {...register("password", { required: true })}
           placeholder="Password"
         />
-        {errors.password && <p className="text-red-500">Password is required</p>}
+        {errors.password && (
+          <p className="text-red-500">Password is required</p>
+        )}
 
         <button type="submit">Register</button>
       </form>

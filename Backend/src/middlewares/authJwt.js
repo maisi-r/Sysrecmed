@@ -4,7 +4,7 @@ import User from '../models/User';
 import Role from "../models/Role.js";
 
 
-export const verifyToken = async (req, res, next) => {
+export const authRequired = async (req, res, next) => {
   try {
       const token = req.cookies.token; // Aquí se obtiene el token de las cookies
 
