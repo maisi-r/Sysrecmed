@@ -13,27 +13,9 @@ import cookieParser from 'cookie-parser';
 import swaggerJSDoc from 'swagger-jsdoc';
 import methodOverride from 'method-override';
 import config from './config';
+import bodyParser from 'body-parser'; // Agrega esta línea
 
 const app = express();
-
-createRoles();
-const bodyParser = require('body-parser');
-// GridFs Configuration - create storage engine
-const storage = new GridFsStorage({
-    url: "mongodb://127.0.0.1/Sysrecmedicos",
-    file: (req, file) => {
-        return new Promise((resolve, reject) => {
-            const filename = (file.originalname.split(" ").join("_")).toLowerCase();
-            const id = file._id;
-            const fileInfo = {
-                filename: filename,
-                bucketName: 'uploads',
-                idFile: id
-            };
-            resolve(fileInfo);
-        });
-    }
-});
 
 var storageSignature = multer.memoryStorage();
 const uploadSignature = multer({ storage: storageSignature });
@@ -57,7 +39,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
-app.use('/api/record', recordRoutes);
+app.use('/api', recordRoutes);
 
 // Middleware para procesar solicitudes multipart/form-data
 app.use('/api/pdf-signature', (req, res, next) => {
@@ -77,7 +59,23 @@ app.use('/api/pdf-signature', (req, res, next) => {
     }
 }, signedPdfRouter);
 
+createRoles();
 
-
+// GridFs Configuration - create storage engine
+const storage = new GridFsStorage({
+    url: "mongodb://127.0.0.1/Sysrecmedicos",
+    file: (req, file) => {
+        return new Promise((resolve, reject) => {
+            const filename = (file.originalname.split(" ").join("_")).toLowerCase();
+            const id = file._id;
+            const fileInfo = {
+                filename: filename,
+                bucketName: 'uploads',
+                idFile: id
+            };
+            resolve(fileInfo);
+        });
+    }
+});
 
 export default app;

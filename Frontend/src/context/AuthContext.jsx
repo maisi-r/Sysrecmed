@@ -17,14 +17,27 @@ export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [errors, setErrors] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (errors.length > 0) {
+      const timer = setTimeout(() => {
+        setErrors([]);
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [errors]);
   
   const signup = async (user) => {
     try {
       const res = await registerRequest(user);
       console.log(res.data);
-      setIsAuthenticated(true);
-      setUser(res.data);
-    } catch (error) {
+      setUser(res.data); 
+      setIsAuthenticated(true); 
+    } 
+    // catch (error) {
+    //   console.log(error.response.data);
+    //   setErrors(error.response.data.message); 
+  catch (error) {
       if (Array.isArray(error.response.data)){
         return setErrors(error.response.data)
       }
@@ -35,65 +48,63 @@ export const AuthProvider = ({ children }) => {
 
   const signin = async (user) => {
     try {
-      const res = await loginRequest(user);
-      console.log(res.data);
-      setIsAuthenticated(true);
-      setUser(res.data);
-    } catch (error) {
-      if (Array.isArray(error.response)) {
-        return setErrors(error.response.data);
-      }
-      setErrors([error.response.data.message]); // Maneja el error de manera adecuada, por ejemplo, mostrando un mensaje al usuario.
+          const res = await loginRequest(user);
+          console.log(res.data);
+          setUser(res.data);
+          setIsAuthenticated(true);
+        } catch (error) {
+          console.log(error.response.data);
+      setErrors(error.response.data.message);
+      // if (Array.isArray(error.response)) {
+      //   return setErrors(error.response.data);
+      // }
+      // setErrors([error.response.data.message]); // Maneja el error de manera adecuada, por ejemplo, mostrando un mensaje al usuario.
     }
   };
 
-  useEffect(() => {
-    if (errors.length > 0) {
-      const timer = setTimeout(() => {
-        setErrors([]);
-      }, 5000);
-      return () => clearTimeout(timer);
-    }
-  }, [errors]);
+
 
   useEffect(() => {
-    async function checkLogin() {
+    const checkLogin = async () => {
       const cookies = Cookies.get();
-
       if (!cookies.token) {
         setIsAuthenticated(false);
         setLoading(false);
-        return setUser(null);
-      } 
+        return;
+      }
+
       try {
         const res = await verifyTokenRequest(cookies.token);
         console.log(res);
         if (!res.data) {
-          setIsAuthenticated(false);
-          setLoading(false);
-          return;
-        }
         setIsAuthenticated(true);
-        setUser(res.data);
+        setLoading(false);
+        return;
+      }
+      setIsAuthenticated(true);
+      setUser(res.data);
+      setLoading(false);
       } catch (error) {
+        console.log(error);
         setIsAuthenticated(false);
         setUser(null);
         setLoading(false);
       }
-    }
+    };
     checkLogin();
   }, []);
 
   return (
     <AuthContext.Provider value={{
+      user,
       signup,
       signin,
-      loading,
-      user,
       isAuthenticated,
       errors,
-    }}>
-      {children}
+      loading,
+    }}
+  >
+    {children}
     </AuthContext.Provider>
   );
 };

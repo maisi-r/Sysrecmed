@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { createRecord, getRecord, getRecordById, updateRecordById, deleteRecordById } from '../controllers/record.controller';
-import { authRequired, isModerator, isAdmin } from "../middlewares/authJwt";
+import { authRequired, isModerator, isAdmin } from "../middlewares/validateToken";
 import multer from 'multer'; // Importa multer
 import { validateSchema } from "../middlewares/validator.middleware";
 import { createRecordSchema } from "../schemas/record.schema";

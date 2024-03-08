@@ -1,35 +1,27 @@
-import jwt from 'jsonwebtoken'
-import config from '../config'
+import jwt from 'jsonwebtoken';
+import config from '../config';
 import User from '../models/User';
-import Role from "../models/Role.js";
+import Role from "../models/Role";
 
-
-export const authRequired = async (req, res, next) => {
+export const authRequired = (req, res, next) => {
   try {
-      const token = req.cookies.token; // Aquí se obtiene el token de las cookies
+    const { token } = req.cookies;
 
-      if (!token) return res.status(403).json({ message: "No token provided" });
+    if (!token)
+      return res.status(401).json({ message: "No token, authorization denied" });
 
-      const decoded = jwt.verify(token, config.SECRET);
-      req.userId = decoded.id;
-
-      // Aquí puedes agregar lógica adicional si es necesario
-      // Por ejemplo, puedes buscar el usuario en la base de datos usando req.userId
-      // y almacenarlo en req.user si es necesario para otras rutas.
-
-      // Ejemplo de búsqueda de usuario en la base de datos
-      const user = await User.findById(req.userId, { password: 0 });
-
-      if (!user) return res.status(404).json({ message: "No user found" });
-
-      // Almacenar el usuario en req.user si es necesario para otras rutas
+    jwt.verify(token, config.SECRET, (error, user) => {
+      if (error) {
+        return res.status(401).json({ message: "Token is not valid" });
+      }
       req.user = user;
-
       next();
+    });
   } catch (error) {
-      return res.status(401).json({ message: "Unauthorized" });
+    return res.status(500).json({ message: error.message });
   }
 };
+
 
 export const isModerator = async (req, res, next) => {
     try {
@@ -47,7 +39,7 @@ export const isModerator = async (req, res, next) => {
     }
   };
   
-  export const isAdmin = async (req, res, next) => {
+export const isAdmin = async (req, res, next) => {
     try {
       const user = await User.findById(req.userId);
       const roles = await Role.find({ _id: { $in: user.roles } });
@@ -64,4 +56,4 @@ export const isModerator = async (req, res, next) => {
       console.log(error);
       return res.status(500).send({ message: error });
     }
-  };
+};

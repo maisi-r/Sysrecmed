@@ -18,12 +18,12 @@ function App() {
         <Route path="/login" element={<LoginPage/>} />
         <Route path="/register" element={<RegisterPage />} />
       
-      {/* <Route element={<ProtectedRoute/>}> */}
+      <Route element={<ProtectedRoute/>}>
         <Route path="/record" element={<RecordPage/>} />
         <Route path="/add-record" element={<RecordFormPage/>} />
         <Route path="/record/:id" element={<RecordFormPage/>} />
         <Route path="/profile" element={<ProfilePage/>} />
-      {/* </Route> */}
+      </Route>
 
 
       </Routes>
